@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Английская грамматика: части речи и члены предложения — полный справочник</title>
+<title>English Grammar: Parts of Speech and Sentence Elements — Complete Reference</title>
 <style>
   /* ============================================================ */
   /* Shared design system (originally from parts_of_speech.html)   */
@@ -75,10 +75,13 @@
     top:20px;
     right:20px;
     display:flex;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+    max-width:min(90vw, 520px);
     gap:6px;
     background:var(--panel);
     border:1px solid var(--border);
-    border-radius:999px;
+    border-radius:18px;
     padding:4px;
     box-shadow:var(--shadow);
   }
@@ -505,9 +508,10 @@
 
   .lang-switch{
     position:absolute; top:20px; right:20px;
-    display:flex; gap:6px;
+    display:flex; flex-wrap:wrap; justify-content:flex-end; gap:6px;
+    max-width:min(90vw, 520px);
     background:var(--panel); border:1px solid var(--border);
-    border-radius:999px; padding:4px; box-shadow:var(--shadow);
+    border-radius:18px; padding:4px; box-shadow:var(--shadow);
   }
   .lang-switch button{
     appearance:none; border:none; background:transparent;
@@ -1262,17 +1266,17 @@
   }
 </style>
 </head>
-<body data-lang="ru" data-section="parts-of-speech">
+<body data-lang="en" data-section="parts-of-speech">
 
 <header class="hero master-hero">
   <div class="lang-switch" id="langSwitch" role="group" aria-label="Language / Til">
-    <button type="button" data-lang="ru" aria-pressed="true">RU</button>
-    <button type="button" data-lang="uz" aria-pressed="false">UZ</button>
-    <button type="button" data-lang="en" aria-pressed="false">EN</button>
-    <button type="button" data-lang="es" aria-pressed="false">ES</button>
-    <button type="button" data-lang="zh" aria-pressed="false">ZH</button>
-    <button type="button" data-lang="hi" aria-pressed="false">HI</button>
-    <button type="button" data-lang="pt" aria-pressed="false">PT</button>
+    <button type="button" data-lang="en" aria-pressed="true">English</button>
+    <button type="button" data-lang="ru" aria-pressed="false">Русский</button>
+    <button type="button" data-lang="uz" aria-pressed="false">Oʻzbekcha</button>
+    <button type="button" data-lang="es" aria-pressed="false">Español</button>
+    <button type="button" data-lang="zh" aria-pressed="false">简体中文</button>
+    <button type="button" data-lang="hi" aria-pressed="false">हिन्दी</button>
+    <button type="button" data-lang="pt" aria-pressed="false">Português</button>
   </div>
   <span class="eyebrow">English Grammar Reference</span>
   <h1><span class="i18n-ru">Английская грамматика: полный справочник</span><span class="i18n-uz">Ingliz tili grammatikasi: to'liq qo'llanma</span><span class="i18n-en">English Grammar: Complete Reference</span><span class="i18n-es">Gramática inglesa: guía completa</span><span class="i18n-zh">英语语法：完整参考手册</span><span class="i18n-hi">अंग्रेज़ी व्याकरण: संपूर्ण संदर्भ</span><span class="i18n-pt">Gramática Inglesa: Guia Completo</span></h1>
@@ -1320,7 +1324,7 @@
 <div class="layout">
   <nav class="toc">
     <h2><span class="i18n-ru">Оглавление</span><span class="i18n-uz">Mundarija</span><span class="i18n-en">Table of Contents</span><span class="i18n-es">Índice</span><span class="i18n-zh">目录</span><span class="i18n-hi">विषय-सूची</span><span class="i18n-pt">Índice</span></h2>
-    <input type="text" id="search-pos" data-ph-ru="Поиск по разделу..." data-ph-uz="Bo'lim bo'yicha qidirish..." data-ph-en="Search this section..." data-ph-es="Buscar en la sección..." data-ph-zh="搜索本节…" data-ph-hi="इस अनुभाग में खोजें..." data-ph-pt="Pesquisar nesta seção..." placeholder="Поиск по разделу..." aria-label="Поиск по разделу">
+    <input type="text" id="search-pos" data-ph-ru="Поиск по разделу..." data-ph-uz="Bo'lim bo'yicha qidirish..." data-ph-en="Search this section..." data-ph-es="Buscar en la sección..." data-ph-zh="搜索本节…" data-ph-hi="इस अनुभाग में खोजें..." data-ph-pt="Pesquisar nesta seção..." placeholder="Search this section..." aria-label="Search this section">
     <ol id="toc-list-pos" class="toc-main">
       <li>
         <a href="#noun">Noun — <span class="i18n-ru">Существительное</span><span class="i18n-uz">Ot</span><span class="i18n-en">Noun</span><span class="i18n-es">Sustantivo</span><span class="i18n-zh">名词</span><span class="i18n-hi">संज्ञा</span><span class="i18n-pt">Substantivo</span></a>
@@ -3151,7 +3155,7 @@
 <div class="layout">
   <nav class="toc">
     <h2><span class="i18n-ru">Оглавление</span><span class="i18n-uz">Mundarija</span><span class="i18n-en">Table of Contents</span><span class="i18n-es">Índice</span><span class="i18n-zh">目录</span><span class="i18n-hi">विषय-सूची</span><span class="i18n-pt">Índice</span></h2>
-    <input type="text" id="search-se" data-ph-ru="Поиск по разделу..." data-ph-uz="Bo'lim bo'yicha qidirish..." data-ph-en="Search this section..." data-ph-es="Buscar en la sección..." data-ph-zh="搜索本节…" data-ph-hi="इस अनुभाग में खोजें..." data-ph-pt="Pesquisar nesta seção..." placeholder="Поиск по разделу..." aria-label="Поиск по разделу">
+    <input type="text" id="search-se" data-ph-ru="Поиск по разделу..." data-ph-uz="Bo'lim bo'yicha qidirish..." data-ph-en="Search this section..." data-ph-es="Buscar en la sección..." data-ph-zh="搜索本节…" data-ph-hi="इस अनुभाग में खोजें..." data-ph-pt="Pesquisar nesta seção..." placeholder="Search this section..." aria-label="Search this section">
     <div class="group-label"><span class="i18n-ru">Главные члены</span><span class="i18n-uz">Bosh bo'laklar</span><span class="i18n-en">Main elements</span><span class="i18n-es">Elementos principales</span><span class="i18n-zh">主要成分</span><span class="i18n-hi">मुख्य अवयव</span><span class="i18n-pt">Elementos principais</span></div>
     <ol id="toc-list-se" class="toc-main">
       <li>
@@ -3895,7 +3899,7 @@
     setLang(btn.dataset.lang);
   });
 
-  setLang(safeGet('pos-lang', 'ru'));
+  setLang(safeGet('pos-lang', 'en'));
 
   /* ===== Master top-level section switcher (Parts of Speech / Sentence Elements) ===== */
   const sectionSwitch = document.getElementById('sectionSwitch');
