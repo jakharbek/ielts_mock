@@ -12,6 +12,7 @@
     --accent-reading:#a78bfa;
     --accent-speaking:#fb923c;
     --accent-writing:#4ade80;
+    --accent-general:#f472b6;
     --text:#eef0ff;
     --muted:#9aa0c3;
     --card-bg:rgba(255,255,255,0.05);
@@ -32,9 +33,49 @@
     display:flex;
     flex-direction:column;
     align-items:center;
-    padding:60px 24px 40px;
+    padding:88px 24px 40px;
     overflow-x:hidden;
   }
+
+  /* ---------- Language switcher ---------- */
+  .lang-switcher{
+    position:fixed;
+    top:20px;
+    right:20px;
+    z-index:100;
+    display:flex;
+    gap:4px;
+    padding:4px;
+    border-radius:999px;
+    background:rgba(15,18,38,0.75);
+    border:1px solid var(--card-border);
+    backdrop-filter:blur(10px);
+    box-shadow:0 10px 30px -12px rgba(0,0,0,0.6);
+  }
+  .lang-btn{
+    appearance:none;
+    border:none;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:.78rem;
+    font-weight:700;
+    letter-spacing:.4px;
+    color:var(--muted);
+    background:transparent;
+    padding:7px 14px;
+    border-radius:999px;
+    transition:background .25s, color .25s;
+  }
+  .lang-btn:hover{color:var(--text);}
+  .lang-btn.active{
+    color:#0b1226;
+    background:linear-gradient(135deg,#38bdf8,#a78bfa);
+  }
+  @media (max-width:480px){
+    .lang-switcher{top:12px; right:12px;}
+    .lang-btn{padding:6px 10px; font-size:.72rem;}
+  }
+
   .hero{
     text-align:center;
     max-width:720px;
@@ -72,14 +113,18 @@
     line-height:1.6;
   }
   .grid{
-    display:grid;
-    grid-template-columns:repeat(2, minmax(260px, 340px));
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
     gap:28px;
     width:100%;
-    max-width:760px;
+    max-width:1108px;
+  }
+  .grid .card{
+    flex:0 1 340px;
   }
   @media (max-width:640px){
-    .grid{grid-template-columns:1fr; max-width:400px;}
+    .grid .card{flex:1 1 100%; max-width:400px;}
   }
   .card{
     position:relative;
@@ -113,10 +158,10 @@
     box-shadow:0 20px 40px -12px rgba(0,0,0,0.5);
   }
   .card:hover::before{opacity:0.35;}
-  .card:nth-child(1){--glow:var(--accent-listening); animation-delay:.05s;}
-  .card:nth-child(2){--glow:var(--accent-reading); animation-delay:.15s;}
-  .card:nth-child(3){--glow:var(--accent-speaking); animation-delay:.25s;}
-  .card:nth-child(4){--glow:var(--accent-writing); animation-delay:.35s;}
+  .ielts-grid .card:nth-child(1){--glow:var(--accent-listening); animation-delay:.05s;}
+  .ielts-grid .card:nth-child(2){--glow:var(--accent-reading); animation-delay:.15s;}
+  .ielts-grid .card:nth-child(3){--glow:var(--accent-speaking); animation-delay:.25s;}
+  .ielts-grid .card:nth-child(4){--glow:var(--accent-writing); animation-delay:.35s;}
   .icon{
     width:56px;
     height:56px;
@@ -152,6 +197,279 @@
   .card:hover .go svg{
     transform:translateX(4px);
   }
+  /* ---------- Shared section header (group titles + AI section) ---------- */
+  .section-header{
+    text-align:center;
+    margin-bottom:36px;
+  }
+  .section-header .badge{margin-bottom:14px;}
+  .section-header h2{
+    font-size:clamp(1.6rem, 3.2vw, 2.2rem);
+    font-weight:800;
+    margin-bottom:10px;
+  }
+  .section-header p{
+    color:var(--muted);
+    max-width:640px;
+    margin:0 auto;
+    line-height:1.6;
+    font-size:.98rem;
+  }
+
+  /* ---------- Content groups: IELTS mock test vs General English textbook ---------- */
+  .content-group{
+    width:100%;
+    max-width:1108px;
+    margin-bottom:64px;
+  }
+  .divider{
+    width:100%;
+    max-width:1108px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    color:var(--muted);
+    font-size:.78rem;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    margin:8px 0 48px;
+  }
+  .divider::before,.divider::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:linear-gradient(90deg, transparent, var(--card-border), transparent);
+  }
+
+  /* General English "textbook" card — deliberately distinct from the IELTS
+     mock-test tiles above: horizontal layout, book-style badge, single wide
+     card instead of a grid, to signal "reference material" not "timed test". */
+  .general-grid .card.book-card{
+    flex:1 1 100%;
+    max-width:100%;
+  }
+  .book-card{
+    --glow:var(--accent-general);
+    flex-direction:row;
+    align-items:center;
+    gap:26px;
+    padding:34px 38px;
+  }
+  .book-card .icon{
+    width:68px;
+    height:68px;
+    font-size:32px;
+    flex-shrink:0;
+  }
+  .book-card .book-body{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    flex:1;
+  }
+  .book-card .top-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  @media (max-width:640px){
+    .book-card{flex-direction:column; align-items:flex-start; text-align:left; padding:28px;}
+  }
+  .ai-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:22px;
+    margin-bottom:28px;
+  }
+  @media (max-width:860px){
+    .ai-grid{grid-template-columns:1fr;}
+  }
+  .ai-card{
+    position:relative;
+    padding:26px 24px;
+    border-radius:20px;
+    background:var(--card-bg);
+    border:1px solid var(--card-border);
+    backdrop-filter:blur(10px);
+    isolation:isolate;
+    overflow:hidden;
+    transition:transform .3s cubic-bezier(.2,.8,.2,1), border-color .3s;
+  }
+  .ai-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:-1;
+    opacity:.28;
+    background:radial-gradient(circle at 25% 15%, var(--glow), transparent 60%);
+  }
+  .ai-card:hover{
+    transform:translateY(-4px);
+    border-color:var(--glow);
+  }
+  .ai-card .top-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:14px;
+  }
+  .ai-card .icon{
+    width:44px;height:44px;
+    border-radius:13px;
+    font-size:21px;
+    background:linear-gradient(135deg, var(--glow), transparent);
+    box-shadow:0 0 0 1px var(--card-border) inset;
+  }
+  .ai-card h3{
+    font-size:1.08rem;
+    font-weight:700;
+  }
+  .tag{
+    display:inline-block;
+    font-size:.68rem;
+    font-weight:700;
+    letter-spacing:.6px;
+    text-transform:uppercase;
+    padding:3px 9px;
+    border-radius:999px;
+    margin-left:auto;
+  }
+  .tag.local{ color:#4ade80; background:rgba(74,222,128,0.12); border:1px solid rgba(74,222,128,0.3);}
+  .tag.cloud{ color:#38bdf8; background:rgba(56,189,248,0.12); border:1px solid rgba(56,189,248,0.3);}
+  .tag.book{ color:#f472b6; background:rgba(244,114,182,0.12); border:1px solid rgba(244,114,182,0.3);}
+  .ai-card p{
+    color:var(--muted);
+    font-size:.88rem;
+    line-height:1.55;
+    margin-bottom:12px;
+  }
+  .ai-card ul{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+  }
+  .ai-card ul li{
+    font-size:.83rem;
+    color:var(--text);
+    display:flex;
+    gap:8px;
+    line-height:1.4;
+  }
+  .ai-card ul li::before{
+    content:"✓";
+    color:var(--glow);
+    font-weight:800;
+    flex-shrink:0;
+  }
+  .ai-card a{color:var(--glow); text-decoration:none; border-bottom:1px dotted currentColor;}
+  .ai-card a:hover{opacity:.8;}
+  .dl-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top:14px;
+    padding:9px 16px;
+    border-radius:11px;
+    font-size:.83rem;
+    font-weight:700;
+    text-decoration:none;
+    color:#0b1a10;
+    background:linear-gradient(135deg,#4ade80,#38bdf8);
+    box-shadow:0 6px 18px -6px rgba(74,222,128,0.55);
+    transition:transform .25s, box-shadow .25s;
+    border:none;
+  }
+  .dl-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 22px -6px rgba(74,222,128,0.7);
+  }
+  .dl-btn.ghost{
+    color:var(--text);
+    background:rgba(255,255,255,0.06);
+    border:1px solid var(--card-border);
+    box-shadow:none;
+  }
+  .dl-btn.ghost:hover{
+    border-color:#4ade80;
+    box-shadow:0 8px 20px -8px rgba(74,222,128,0.4);
+  }
+  #aiOpenRouter{--glow:#38bdf8;}
+  #aiClaudeServer{--glow:#4ade80;}
+  #aiElevenLabs{--glow:#a78bfa;}
+
+  .howto{
+    padding:28px 30px;
+    border-radius:20px;
+    background:var(--card-bg);
+    border:1px solid var(--card-border);
+    backdrop-filter:blur(10px);
+  }
+  .howto h3{
+    font-size:1.05rem;
+    font-weight:700;
+    margin-bottom:16px;
+    display:flex;
+    align-items:center;
+    gap:9px;
+  }
+  .steps{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:18px;
+    margin-bottom:18px;
+  }
+  @media (max-width:760px){
+    .steps{grid-template-columns:1fr;}
+  }
+  .step{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .step .num{
+    width:26px;height:26px;
+    border-radius:8px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:.78rem;
+    font-weight:800;
+    background:linear-gradient(135deg,#4ade80,transparent);
+    box-shadow:0 0 0 1px var(--card-border) inset;
+  }
+  .step p{
+    color:var(--muted);
+    font-size:.84rem;
+    line-height:1.5;
+  }
+  code{
+    font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;
+    font-size:.82rem;
+  }
+  pre.code-block{
+    background:#0a0c1c;
+    border:1px solid var(--card-border);
+    border-radius:12px;
+    padding:14px 16px;
+    overflow-x:auto;
+    color:#c9e8ff;
+    font-size:.82rem;
+    line-height:1.6;
+  }
+  pre.code-block .cm{color:#6b7299;}
+  pre.code-block .kw{color:#a78bfa;}
+  .howto-note{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    font-size:.83rem;
+    color:var(--muted);
+    line-height:1.55;
+    padding-top:14px;
+    border-top:1px solid var(--card-border);
+    margin-top:16px;
+  }
+  .howto-note b{color:var(--text);}
+
   footer{
     margin-top:56px;
     color:var(--muted);
@@ -174,51 +492,355 @@
 </head>
 <body>
 
+  <div class="lang-switcher" role="group" aria-label="Language / Til / Язык">
+    <button type="button" class="lang-btn" data-lang="ru">RU</button>
+    <button type="button" class="lang-btn" data-lang="uz">UZ</button>
+    <button type="button" class="lang-btn" data-lang="en">EN</button>
+  </div>
+
   <div class="hero">
-    <span class="badge">IELTS Preparation</span>
-    <h1>Твой путь к высокому баллу IELTS</h1>
-    <p>Выбери раздел для практики — Listening, Reading, Speaking или Writing.</p>
+    <span class="badge" data-i18n="hero.badge">Подготовка к IELTS</span>
+    <h1 data-i18n="hero.title">Твой путь к высокому баллу IELTS</h1>
+    <p data-i18n="hero.desc">Пробный экзамен IELTS по всем модулям — и отдельный учебник General English для базовой грамматики.</p>
   </div>
 
-  <div class="grid">
-    <a class="card" href="ielts_listening.html">
-      <div class="icon">🎧</div>
-      <h2>Listening</h2>
-      <p>Аудирование: практика восприятия речи на слух с заданиями и разбором ответов.</p>
-      <span class="go">Начать
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </span>
-    </a>
+  <section class="content-group">
+    <div class="section-header">
+      <span class="badge" data-i18n="sec1.badge">Mock Exam</span>
+      <h2 data-i18n="sec1.title">IELTS — пробный экзамен</h2>
+      <p data-i18n="sec1.desc">4 модуля в формате настоящего экзамена: таймер, интерфейс компьютерного IELTS и разбор результатов после каждой попытки.</p>
+    </div>
+    <div class="grid ielts-grid">
+      <a class="card" href="ielts_listening.html">
+        <div class="icon">🎧</div>
+        <h2>Listening</h2>
+        <p data-i18n="card.listening.desc">Аудирование: практика восприятия речи на слух с заданиями и разбором ответов.</p>
+        <span class="go"><span data-i18n="go">Начать</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
 
-    <a class="card" href="ielts_reading.html">
-      <div class="icon">📖</div>
-      <h2>Reading</h2>
-      <p>Чтение: тексты, вопросы и стратегии для быстрого и точного понимания.</p>
-      <span class="go">Начать
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </span>
-    </a>
+      <a class="card" href="ielts_reading.html">
+        <div class="icon">📖</div>
+        <h2>Reading</h2>
+        <p data-i18n="card.reading.desc">Чтение: тексты, вопросы и стратегии для быстрого и точного понимания.</p>
+        <span class="go"><span data-i18n="go">Начать</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
 
-    <a class="card" href="ielts_speaking.html">
-      <div class="icon">🗣️</div>
-      <h2>Speaking</h2>
-      <p>Говорение: банк вопросов и генератор пробного собеседования.</p>
-      <span class="go">Начать
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </span>
-    </a>
+      <a class="card" href="ielts_speaking.html">
+        <div class="icon">🗣️</div>
+        <h2>Speaking</h2>
+        <p data-i18n="card.speaking.desc">Говорение: банк вопросов и генератор пробного собеседования.</p>
+        <span class="go"><span data-i18n="go">Начать</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
 
-    <a class="card" href="ielts_writing.html">
-      <div class="icon">✍️</div>
-      <h2>Writing</h2>
-      <p>Письмо: отработка Task 1 и Task 2 с примерами и рекомендациями.</p>
-      <span class="go">Начать
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </span>
-    </a>
-  </div>
+      <a class="card" href="ielts_writing.html">
+        <div class="icon">✍️</div>
+        <h2>Writing</h2>
+        <p data-i18n="card.writing.desc">Письмо: отработка Task 1 и Task 2 с примерами и рекомендациями.</p>
+        <span class="go"><span data-i18n="go">Начать</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+    </div>
+  </section>
 
-  <footer>Удачи на экзамене 🍀</footer>
+  <div class="divider" data-i18n="divider">Учебный материал</div>
+
+  <section class="content-group">
+    <div class="section-header">
+      <span class="badge" data-i18n="sec2.badge">Учебник</span>
+      <h2>General English</h2>
+      <p data-i18n="sec2.desc">Не экзамен, а справочник: разбор грамматики английского языка — части речи и члены предложения — вне формата и таймингов IELTS.</p>
+    </div>
+    <div class="grid general-grid">
+      <a class="card book-card" href="sentence_elements_and_parts_of_speech.html">
+        <div class="icon">🧩</div>
+        <div class="book-body">
+          <div class="top-row">
+            <h2 data-i18n="book.title">Части речи и члены предложения</h2>
+            <span class="tag book" data-i18n="sec2.badge">Учебник</span>
+          </div>
+          <p data-i18n="book.desc">Теория и справочные материалы по грамматике английского: parts of speech, sentence elements — учи в своём темпе, без таймера и баллов.</p>
+          <span class="go"><span data-i18n="book.go">Открыть учебник</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="ai-section">
+    <div class="section-header">
+      <span class="badge" data-i18n="ai.badge">AI-интеграция</span>
+      <h2 data-i18n="ai.title">Подключи ИИ — генерируй тесты и получай подсказки</h2>
+      <p data-i18n-html="ai.desc">В каждом тренажёре (Reading, Writing, Listening, Speaking) в <b>Settings → 🔀 AI Integration</b> можно
+        подключить нейросеть, чтобы генерировать совершенно новые тесты «по кнопке», получать подсказки по вопросам
+        и разбор ответов. Провайдера выбираешь сам — вариант из облака или полностью локальный, на твоей подписке.</p>
+    </div>
+
+    <div class="ai-grid">
+      <div class="ai-card" id="aiOpenRouter">
+        <div class="top-row">
+          <div class="icon">🔀</div>
+          <h3>OpenRouter</h3>
+          <span class="tag cloud" data-i18n="ai.openrouter.tag">Облако</span>
+        </div>
+        <p data-i18n-html="ai.openrouter.desc">Свой API-ключ <a href="https://openrouter.ai" target="_blank" rel="noopener">openrouter.ai</a> — выбираешь
+          любую модель (Claude, GPT, Gemini, DeepSeek и др.) под конкретную задачу.</p>
+        <ul>
+          <li data-i18n-html="ai.openrouter.li1">Оплата pay-as-you-go, либо модели с суффиксом <code>:free</code></li>
+          <li data-i18n="ai.openrouter.li2">Нужна модель с поддержкой tool calling</li>
+          <li data-i18n="ai.openrouter.li3">Работает из любого браузера, без установки</li>
+        </ul>
+      </div>
+
+      <div class="ai-card" id="aiClaudeServer">
+        <div class="top-row">
+          <div class="icon">🖥️</div>
+          <h3>Claude Server</h3>
+          <span class="tag local" data-i18n="ai.claude.tag">Локально · без ключа</span>
+        </div>
+        <p data-i18n-html="ai.claude.desc">Локальный сервер из <code>claude-server.zip</code> — прокси к Claude Code CLI, использует твою
+          подписку Claude (<code>claude login</code>). Никакой API-ключ не нужен и не расходуется.</p>
+        <ul>
+          <li data-i18n-html="ai.claude.li1">OpenAI-совместимый API на <code>127.0.0.1:8137</code></li>
+          <li data-i18n="ai.claude.li2">Генерация тестов на модели Opus / Sonnet / Haiku</li>
+          <li data-i18n="ai.claude.li3">Данные не уходят к третьим сервисам — всё на твоей машине</li>
+        </ul>
+        <a class="dl-btn" href="claude-server.zip" download>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+          <span data-i18n="ai.claude.dl">Скачать claude-server.zip</span>
+        </a>
+      </div>
+
+      <div class="ai-card" id="aiElevenLabs">
+        <div class="top-row">
+          <div class="icon">🔊</div>
+          <h3>ElevenLabs</h3>
+          <span class="tag cloud" data-i18n="ai.eleven.tag">Озвучка</span>
+        </div>
+        <p data-i18n-html="ai.eleven.desc">Реалистичное озвучивание текста в Reading/Listening — правый клик → «Listen» читает вслух выделенный
+          фрагмент голосом по твоему выбору из <a href="https://elevenlabs.io/app/voice-library" target="_blank" rel="noopener">библиотеки голосов</a>.</p>
+        <ul>
+          <li data-i18n="ai.eleven.li1">Свой API-ключ ElevenLabs, настройки общие для Reading и Listening</li>
+          <li data-i18n="ai.eleven.li2">Поиск и предпрослушивание голосов прямо в настройках</li>
+          <li data-i18n="ai.eleven.li3">Без ключа доступен голос браузера — бесплатно, но менее живой</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="howto">
+      <h3 data-i18n="howto.title">⚙️ Быстрый старт с Claude Server (рекомендуется)</h3>
+      <div class="steps">
+        <div class="step">
+          <span class="num">1</span>
+          <p data-i18n="howto.step1.desc">Скачай и распакуй архив сервера, затем авторизуй CLI один раз:</p>
+          <a class="dl-btn ghost" href="claude-server.zip" download>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+            claude-server.zip
+          </a>
+          <pre class="code-block"><span class="cm" data-i18n="howto.step1.comment"># требуется Node.js 18+</span>
+npm install -g @anthropic-ai/claude-code
+claude login</pre>
+        </div>
+        <div class="step">
+          <span class="num">2</span>
+          <p data-i18n-html="howto.step2.desc">Запусти локальный сервер — он слушает только <code>127.0.0.1</code>, наружу не торчит:</p>
+          <pre class="code-block"><span class="kw">cd</span> claude-server
+node server.js</pre>
+        </div>
+        <div class="step">
+          <span class="num">3</span>
+          <p data-i18n-html="howto.step3.desc">В любом тренажёре открой <b>Settings → 🔀 AI Integration</b>, выбери <b>Claude Server (local)</b> и
+            жми «Generate New Test» — ИИ соберёт новый вариант теста целиком.</p>
+        </div>
+      </div>
+      <div class="howto-note">
+        <span>💡</span>
+        <span data-i18n-html="howto.note"><b>Что выбрать:</b> если есть подписка Claude (Max/Pro) — бери <b>Claude Server</b>, это бесплатно и
+          приватно поверх уже оплаченной подписки. Нужна конкретная модель не от Anthropic или работа без установки
+          Node.js — используй <b>OpenRouter</b>. Для живой озвучки текста в Reading/Listening дополнительно подключи
+          <b>ElevenLabs</b>. Все настройки хранятся локально в браузере (localStorage) и общие для всех четырёх
+          тренажёров.</span>
+      </div>
+    </div>
+  </section>
+
+  <footer data-i18n="footer">Удачи на экзамене 🍀</footer>
+
+<script>
+(function(){
+  var STORAGE_KEY = "ieltsHubLang";
+  var DICT = {
+    ru: {
+      "hero.badge": "Подготовка к IELTS",
+      "hero.title": "Твой путь к высокому баллу IELTS",
+      "hero.desc": "Пробный экзамен IELTS по всем модулям — и отдельный учебник General English для базовой грамматики.",
+      "sec1.badge": "Mock Exam",
+      "sec1.title": "IELTS — пробный экзамен",
+      "sec1.desc": "4 модуля в формате настоящего экзамена: таймер, интерфейс компьютерного IELTS и разбор результатов после каждой попытки.",
+      "card.listening.desc": "Аудирование: практика восприятия речи на слух с заданиями и разбором ответов.",
+      "card.reading.desc": "Чтение: тексты, вопросы и стратегии для быстрого и точного понимания.",
+      "card.speaking.desc": "Говорение: банк вопросов и генератор пробного собеседования.",
+      "card.writing.desc": "Письмо: отработка Task 1 и Task 2 с примерами и рекомендациями.",
+      "go": "Начать",
+      "divider": "Учебный материал",
+      "sec2.badge": "Учебник",
+      "sec2.desc": "Не экзамен, а справочник: разбор грамматики английского языка — части речи и члены предложения — вне формата и таймингов IELTS.",
+      "book.title": "Части речи и члены предложения",
+      "book.desc": "Теория и справочные материалы по грамматике английского: parts of speech, sentence elements — учи в своём темпе, без таймера и баллов.",
+      "book.go": "Открыть учебник",
+      "ai.badge": "AI-интеграция",
+      "ai.title": "Подключи ИИ — генерируй тесты и получай подсказки",
+      "ai.desc": "В каждом тренажёре (Reading, Writing, Listening, Speaking) в <b>Settings → 🔀 AI Integration</b> можно подключить нейросеть, чтобы генерировать совершенно новые тесты «по кнопке», получать подсказки по вопросам и разбор ответов. Провайдера выбираешь сам — вариант из облака или полностью локальный, на твоей подписке.",
+      "ai.openrouter.tag": "Облако",
+      "ai.openrouter.desc": "Свой API-ключ <a href=\"https://openrouter.ai\" target=\"_blank\" rel=\"noopener\">openrouter.ai</a> — выбираешь любую модель (Claude, GPT, Gemini, DeepSeek и др.) под конкретную задачу.",
+      "ai.openrouter.li1": "Оплата pay-as-you-go, либо модели с суффиксом <code>:free</code>",
+      "ai.openrouter.li2": "Нужна модель с поддержкой tool calling",
+      "ai.openrouter.li3": "Работает из любого браузера, без установки",
+      "ai.claude.tag": "Локально · без ключа",
+      "ai.claude.desc": "Локальный сервер из <code>claude-server.zip</code> — прокси к Claude Code CLI, использует твою подписку Claude (<code>claude login</code>). Никакой API-ключ не нужен и не расходуется.",
+      "ai.claude.li1": "OpenAI-совместимый API на <code>127.0.0.1:8137</code>",
+      "ai.claude.li2": "Генерация тестов на модели Opus / Sonnet / Haiku",
+      "ai.claude.li3": "Данные не уходят к третьим сервисам — всё на твоей машине",
+      "ai.claude.dl": "Скачать claude-server.zip",
+      "ai.eleven.tag": "Озвучка",
+      "ai.eleven.desc": "Реалистичное озвучивание текста в Reading/Listening — правый клик → «Listen» читает вслух выделенный фрагмент голосом по твоему выбору из <a href=\"https://elevenlabs.io/app/voice-library\" target=\"_blank\" rel=\"noopener\">библиотеки голосов</a>.",
+      "ai.eleven.li1": "Свой API-ключ ElevenLabs, настройки общие для Reading и Listening",
+      "ai.eleven.li2": "Поиск и предпрослушивание голосов прямо в настройках",
+      "ai.eleven.li3": "Без ключа доступен голос браузера — бесплатно, но менее живой",
+      "howto.title": "⚙️ Быстрый старт с Claude Server (рекомендуется)",
+      "howto.step1.desc": "Скачай и распакуй архив сервера, затем авторизуй CLI один раз:",
+      "howto.step1.comment": "# требуется Node.js 18+",
+      "howto.step2.desc": "Запусти локальный сервер — он слушает только <code>127.0.0.1</code>, наружу не торчит:",
+      "howto.step3.desc": "В любом тренажёре открой <b>Settings → 🔀 AI Integration</b>, выбери <b>Claude Server (local)</b> и жми «Generate New Test» — ИИ соберёт новый вариант теста целиком.",
+      "howto.note": "<b>Что выбрать:</b> если есть подписка Claude (Max/Pro) — бери <b>Claude Server</b>, это бесплатно и приватно поверх уже оплаченной подписки. Нужна конкретная модель не от Anthropic или работа без установки Node.js — используй <b>OpenRouter</b>. Для живой озвучки текста в Reading/Listening дополнительно подключи <b>ElevenLabs</b>. Все настройки хранятся локально в браузере (localStorage) и общие для всех четырёх тренажёров.",
+      "footer": "Удачи на экзамене 🍀"
+    },
+    uz: {
+      "hero.badge": "IELTS'ga tayyorgarlik",
+      "hero.title": "Yuqori IELTS ballga eng qisqa yo'l",
+      "hero.desc": "Barcha bo'limlar bo'yicha IELTS sinov imtihoni — va grammatika asoslari uchun alohida General English darsligi.",
+      "sec1.badge": "Sinov imtihoni",
+      "sec1.title": "IELTS — sinov imtihoni",
+      "sec1.desc": "Haqiqiy imtihon formatidagi 4 ta bo'lim: taymer, kompyuter IELTS interfeysi va har bir urinishdan so'ng natijalar tahlili.",
+      "card.listening.desc": "Tinglab tushunish: audio topshiriqlar va javoblarning to'liq tahlili bilan mashq qiling.",
+      "card.reading.desc": "O'qish: matnlar, savollar va tez hamda aniq tushunish uchun strategiyalar.",
+      "card.speaking.desc": "Gapirish: savollar banki va sinov suhbatini generatsiya qiluvchi vosita.",
+      "card.writing.desc": "Yozish: Task 1 va Task 2 ustida namunalar va tavsiyalar bilan mashq qilish.",
+      "go": "Boshlash",
+      "divider": "O'quv materiali",
+      "sec2.badge": "Darslik",
+      "sec2.desc": "Bu imtihon emas, balki qo'llanma: IELTS formati va vaqt chegarasidan tashqarida ingliz tili grammatikasi — nutq bo'laklari va gap bo'laklari — tahlili.",
+      "book.title": "Nutq bo'laklari va gap bo'laklari",
+      "book.desc": "Ingliz tili grammatikasi bo'yicha nazariya va ma'lumotnoma: parts of speech, sentence elements — o'z sur'atingizda, taymersiz va ballarsiz o'rganing.",
+      "book.go": "Darslikni ochish",
+      "ai.badge": "AI integratsiyasi",
+      "ai.title": "AI'ni ulang — testlar generatsiya qiling va maslahatlar oling",
+      "ai.desc": "Har bir trenajyorda (Reading, Writing, Listening, Speaking) <b>Settings → 🔀 AI Integration</b> bo'limida sun'iy intellektni ulash mumkin — bir tugma bosish bilan butunlay yangi testlar generatsiya qilish, savollar bo'yicha maslahat va javoblar tahlilini olish uchun. Provayderni o'zingiz tanlaysiz — bulutli variant yoki o'z obunangiz asosida to'liq lokal.",
+      "ai.openrouter.tag": "Bulut",
+      "ai.openrouter.desc": "O'zingizning <a href=\"https://openrouter.ai\" target=\"_blank\" rel=\"noopener\">openrouter.ai</a> API kalitingiz — vazifaga mos istalgan modelni (Claude, GPT, Gemini, DeepSeek va boshqalar) tanlaysiz.",
+      "ai.openrouter.li1": "To'lov pay-as-you-go tizimida, yoki oxiri <code>:free</code> bo'lgan modellar",
+      "ai.openrouter.li2": "Tool calling'ni qo'llab-quvvatlaydigan model kerak",
+      "ai.openrouter.li3": "Har qanday brauzerdan ishlaydi, o'rnatish shart emas",
+      "ai.claude.tag": "Lokal · kalitsiz",
+      "ai.claude.desc": "<code>claude-server.zip</code> ichidagi lokal server — Claude Code CLI uchun proksi, Claude obunangizdan foydalanadi (<code>claude login</code>). Hech qanday API kalit kerak emas va sarflanmaydi.",
+      "ai.claude.li1": "<code>127.0.0.1:8137</code> manzilida OpenAI bilan mos API",
+      "ai.claude.li2": "Opus / Sonnet / Haiku modellarida testlar generatsiyasi",
+      "ai.claude.li3": "Ma'lumotlar uchinchi tomon xizmatlariga yuborilmaydi — hammasi kompyuteringizda",
+      "ai.claude.dl": "claude-server.zip yuklab olish",
+      "ai.eleven.tag": "Ovoz",
+      "ai.eleven.desc": "Reading/Listening bo'limlarida matnni tabiiy ovozda o'qitish — o'ng tugma → «Listen» tanlangan matn qismini <a href=\"https://elevenlabs.io/app/voice-library\" target=\"_blank\" rel=\"noopener\">ovozlar kutubxonasidan</a> tanlagan ovozingizda o'qib beradi.",
+      "ai.eleven.li1": "O'zingizning ElevenLabs API kalitingiz, sozlamalar Reading va Listening uchun umumiy",
+      "ai.eleven.li2": "Sozlamalarning o'zida ovozlarni qidirish va oldindan tinglash",
+      "ai.eleven.li3": "Kalitsiz brauzer ovozi mavjud — bepul, lekin unchalik jonli emas",
+      "howto.title": "⚙️ Claude Server bilan tezkor boshlash (tavsiya etiladi)",
+      "howto.step1.desc": "Server arxivini yuklab oling va uni oching, so'ngra CLI'ni bir marta avtorizatsiya qiling:",
+      "howto.step1.comment": "# Node.js 18+ talab qilinadi",
+      "howto.step2.desc": "Lokal serverni ishga tushiring — u faqat <code>127.0.0.1</code> manzilini tinglaydi, tashqariga chiqmaydi:",
+      "howto.step3.desc": "Istalgan trenajyorda <b>Settings → 🔀 AI Integration</b>'ni oching, <b>Claude Server (local)</b>'ni tanlang va «Generate New Test» tugmasini bosing — AI butunlay yangi test variantini tuzadi.",
+      "howto.note": "<b>Nimani tanlash kerak:</b> Claude obunangiz (Max/Pro) bo'lsa — <b>Claude Server</b>'ni tanlang, bu allaqachon to'langan obuna ustiga bepul va maxfiy ishlaydi. Anthropic'dan bo'lmagan aniq bir model kerak bo'lsa yoki Node.js o'rnatmasdan ishlash kerak bo'lsa — <b>OpenRouter</b>'dan foydalaning. Reading/Listening'da jonli ovoz uchun qo'shimcha ravishda <b>ElevenLabs</b>'ni ulang. Barcha sozlamalar brauzerda lokal saqlanadi (localStorage) va barcha to'rtta trenajyor uchun umumiy.",
+      "footer": "Imtihonda omad! 🍀"
+    },
+    en: {
+      "hero.badge": "IELTS Preparation",
+      "hero.title": "Your path to a high IELTS score",
+      "hero.desc": "A full mock IELTS exam across every module — plus a separate General English textbook for core grammar.",
+      "sec1.badge": "Mock Exam",
+      "sec1.title": "IELTS — Mock Exam",
+      "sec1.desc": "4 modules in real exam format: a timer, the Computer-delivered IELTS interface, and a results breakdown after every attempt.",
+      "card.listening.desc": "Listening comprehension: practice with audio tasks and full answer breakdowns.",
+      "card.reading.desc": "Reading: passages, questions, and strategies for fast, accurate comprehension.",
+      "card.speaking.desc": "Speaking: a question bank and a mock-interview generator.",
+      "card.writing.desc": "Writing: Task 1 and Task 2 practice with sample answers and guidance.",
+      "go": "Start",
+      "divider": "Study material",
+      "sec2.badge": "Textbook",
+      "sec2.desc": "Not an exam — a reference guide: English grammar broken down — parts of speech and sentence elements — outside IELTS format and timing.",
+      "book.title": "Parts of Speech & Sentence Elements",
+      "book.desc": "Theory and reference material on English grammar: parts of speech, sentence elements — learn at your own pace, no timer, no score.",
+      "book.go": "Open textbook",
+      "ai.badge": "AI Integration",
+      "ai.title": "Connect AI — generate tests and get hints",
+      "ai.desc": "In every trainer (Reading, Writing, Listening, Speaking), under <b>Settings → 🔀 AI Integration</b> you can plug in an AI model to generate a brand-new test with one click, get per-question hints, and see answer breakdowns. Pick your own provider — a cloud option, or fully local using your own subscription.",
+      "ai.openrouter.tag": "Cloud",
+      "ai.openrouter.desc": "Your own <a href=\"https://openrouter.ai\" target=\"_blank\" rel=\"noopener\">openrouter.ai</a> API key — pick any model (Claude, GPT, Gemini, DeepSeek, and more) for the task at hand.",
+      "ai.openrouter.li1": "Pay-as-you-go billing, or pick a model suffixed <code>:free</code>",
+      "ai.openrouter.li2": "Requires a model that supports tool calling",
+      "ai.openrouter.li3": "Works from any browser, nothing to install",
+      "ai.claude.tag": "Local · no key",
+      "ai.claude.desc": "A local server from <code>claude-server.zip</code> — a proxy to the Claude Code CLI, using your Claude subscription (<code>claude login</code>). No API key needed, none consumed.",
+      "ai.claude.li1": "OpenAI-compatible API at <code>127.0.0.1:8137</code>",
+      "ai.claude.li2": "Test generation on the Opus / Sonnet / Haiku models",
+      "ai.claude.li3": "Nothing is sent to third-party services — everything runs on your machine",
+      "ai.claude.dl": "Download claude-server.zip",
+      "ai.eleven.tag": "Voice",
+      "ai.eleven.desc": "Natural text-to-speech in Reading/Listening — right-click → \"Listen\" reads the selected passage aloud in a voice of your choice from the <a href=\"https://elevenlabs.io/app/voice-library\" target=\"_blank\" rel=\"noopener\">voice library</a>.",
+      "ai.eleven.li1": "Your own ElevenLabs API key — settings shared between Reading and Listening",
+      "ai.eleven.li2": "Search and preview voices right inside settings",
+      "ai.eleven.li3": "Without a key, the browser voice is available — free, but less natural",
+      "howto.title": "⚙️ Quick start with Claude Server (recommended)",
+      "howto.step1.desc": "Download and unzip the server archive, then authorize the CLI once:",
+      "howto.step1.comment": "# requires Node.js 18+",
+      "howto.step2.desc": "Start the local server — it only listens on <code>127.0.0.1</code>, nothing is exposed externally:",
+      "howto.step3.desc": "In any trainer, open <b>Settings → 🔀 AI Integration</b>, choose <b>Claude Server (local)</b>, and click “Generate New Test” — the AI will assemble a brand-new test from scratch.",
+      "howto.note": "<b>Which to pick:</b> if you already have a Claude subscription (Max/Pro), use <b>Claude Server</b> — it's free and private on top of a subscription you're already paying for. Need a specific non-Anthropic model, or can't install Node.js? Use <b>OpenRouter</b>. For natural text-to-speech in Reading/Listening, also connect <b>ElevenLabs</b>. All settings are stored locally in the browser (localStorage) and shared across all four trainers.",
+      "footer": "Good luck on the exam 🍀"
+    }
+  };
+
+  function applyLang(lang){
+    var dict = DICT[lang] || DICT.ru;
+    document.querySelectorAll("[data-i18n]").forEach(function(el){
+      var key = el.getAttribute("data-i18n");
+      if (dict[key] !== undefined) el.textContent = dict[key];
+    });
+    document.querySelectorAll("[data-i18n-html]").forEach(function(el){
+      var key = el.getAttribute("data-i18n-html");
+      if (dict[key] !== undefined) el.innerHTML = dict[key];
+    });
+    document.documentElement.setAttribute("lang", lang);
+    document.querySelectorAll(".lang-btn").forEach(function(btn){
+      btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
+    });
+    localStorage.setItem(STORAGE_KEY, lang);
+  }
+
+  document.querySelectorAll(".lang-btn").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      applyLang(btn.getAttribute("data-lang"));
+    });
+  });
+
+  var saved = localStorage.getItem(STORAGE_KEY);
+  applyLang(saved && DICT[saved] ? saved : "ru");
+})();
+</script>
 
 </body>
 </html>
