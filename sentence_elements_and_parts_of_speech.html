@@ -11,7 +11,65 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>English Grammar: Parts of Speech and Sentence Elements — Complete Reference</title>
+<title>Parts of Speech &amp; Sentence Elements Guide | IELTS Prep Hub</title>
+<meta name="description" content="A complete English grammar reference: parts of speech and sentence elements explained clearly with examples - a free study guide for the grammar IELTS needs.">
+<link rel="canonical" href="https://myenglishway.org/sentence_elements_and_parts_of_speech.html">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Crect%20width='100'%20height='100'%20rx='22'%20fill='%230b1220'/%3E%3Ctext%20x='50'%20y='68'%20font-size='56'%20text-anchor='middle'%3E%F0%9F%8E%93%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#0b1220">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IELTS Prep Hub">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Parts of Speech &amp; Sentence Elements Guide | IELTS Prep Hub">
+<meta property="og:description" content="A complete English grammar reference: parts of speech and sentence elements explained clearly with examples - a free study guide for the grammar IELTS needs.">
+<meta property="og:url" content="https://myenglishway.org/sentence_elements_and_parts_of_speech.html">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Parts of Speech &amp; Sentence Elements Guide | IELTS Prep Hub">
+<meta name="twitter:description" content="A complete English grammar reference: parts of speech and sentence elements explained clearly with examples - a free study guide for the grammar IELTS needs.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LearningResource",
+      "name": "Parts of Speech & Sentence Elements Guide",
+      "description": "A complete English grammar reference: parts of speech and sentence elements explained clearly with examples - a free study guide for the grammar IELTS needs.",
+      "url": "https://myenglishway.org/sentence_elements_and_parts_of_speech.html",
+      "inLanguage": "en",
+      "learningResourceType": "Reference Guide",
+      "about": {
+        "@type": "Thing",
+        "name": "IELTS"
+      },
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "IELTS Prep Hub",
+        "url": "https://myenglishway.org/"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://myenglishway.org/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Parts of Speech & Sentence Elements Guide",
+          "item": "https://myenglishway.org/sentence_elements_and_parts_of_speech.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
 <style>
   /* ============================================================ */
   /* Shared design system (originally from parts_of_speech.html)   */
@@ -26,7 +84,7 @@
     --border-strong:#343c66;
     --text:#e7e9f5;
     --text-dim:#a3a9c9;
-    --text-faint:#6f7699;
+    --text-faint:#949acb;
     --accent:#7c9dff;
     --accent-2:#ffb454;
     --accent-3:#5fd7a7;
@@ -45,7 +103,7 @@
       --border-strong:#d3d8ea;
       --text:#1c2033;
       --text-dim:#4b5170;
-      --text-faint:#8188a8;
+      --text-faint:#555b82;
       --accent:#3b5fe0;
       --accent-2:#c2790a;
       --accent-3:#0e8f63;
@@ -457,7 +515,7 @@
     --border-strong:#343c66;
     --text:#e7e9f5;
     --text-dim:#a3a9c9;
-    --text-faint:#6f7699;
+    --text-faint:#949acb;
     --accent:#7c9dff;
     --accent-2:#ffb454;
     --accent-3:#5fd7a7;
@@ -479,7 +537,7 @@
       --border-strong:#d3d8ea;
       --text:#1c2033;
       --text-dim:#4b5170;
-      --text-faint:#8188a8;
+      --text-faint:#555b82;
       --accent:#3b5fe0;
       --accent-2:#c2790a;
       --accent-3:#0e8f63;
@@ -1935,7 +1993,7 @@
 
 </div>
 
-<div id="page-se" class="page-section" role="tabpanel" aria-label="Sentence Elements">
+<div id="page-se" class="page-section" role="tabpanel" aria-label="Sentence Elements" hidden>
 
 
 <header class="hero page-hero">
@@ -3203,7 +3261,7 @@
     </ol>
   </nav>
 
-  <main id="main-se">
+  <main id="main-se" hidden>
 
     <!-- ============ SUBJECT ============ -->
     <section class="pos" id="subject" data-title="subject подлежащее ega">
@@ -3920,6 +3978,9 @@
       b.classList.toggle('active', active);
       b.setAttribute('aria-selected', String(active));
     });
+    document.getElementById('page-pos').toggleAttribute('hidden', sec !== 'parts-of-speech');
+    document.getElementById('page-se').toggleAttribute('hidden', sec !== 'sentence-elements');
+    document.getElementById('main-se').toggleAttribute('hidden', sec !== 'sentence-elements');
   }
 
   sectionSwitch.addEventListener('click', (e) => {
