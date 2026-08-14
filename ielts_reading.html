@@ -17,6 +17,9 @@
 <meta name="robots" content="index, follow">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Crect%20width='100'%20height='100'%20rx='22'%20fill='%230b1220'/%3E%3Ctext%20x='50'%20y='68'%20font-size='56'%20text-anchor='middle'%3E%F0%9F%8E%93%3C/text%3E%3C/svg%3E">
 <meta name="theme-color" content="#0b1220">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="IELTS Prep Hub">
@@ -91,42 +94,98 @@
 
   /* ---------- Start screen ---------- */
   #startScreen{
-    min-height:100vh;display:flex;align-items:center;justify-content:center;
-    background:linear-gradient(135deg,#12181f,#1d2733);
-    padding:24px;
+    --start-accent:#a78bfa; --start-accent-rgb:167,139,250;
+    position:relative;overflow:hidden;min-height:100vh;
+    display:flex;align-items:center;justify-content:center;
+    background:#05060f;padding:104px 24px 56px;
   }
-  #startCard{
-    background:#fff;border-radius:10px;max-width:680px;width:100%;
-    padding:36px 40px;box-shadow:0 10px 40px rgba(0,0,0,0.35);
+  #startScreen::before{
+    content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse 120% 80% at 50% -10%,#131a44 0%,#0a0c1e 45%,#05060f 100%);
   }
-  #startCard h1{margin:0 0 4px;font-size:26px;color:#12181f;}
-  #startCard .subtitle{color:#c8102e;font-weight:bold;letter-spacing:0.5px;margin-bottom:18px;}
-  #startCard p{line-height:1.55;color:#333;}
-  #startCard ul{line-height:1.7;color:#333;padding-left:20px;}
-  .ru-note{background:#f3f6fb;border-left:4px solid #0b5fff;padding:10px 14px;border-radius:4px;font-size:14px;color:#333;margin-bottom:18px;}
+  #startScreen::after{
+    content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.5;
+    background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+    background-size:56px 56px;
+    mask-image:radial-gradient(ellipse 95% 65% at 50% 0%,#000 15%,transparent 78%);
+    -webkit-mask-image:radial-gradient(ellipse 95% 65% at 50% 0%,#000 15%,transparent 78%);
+  }
+  .start-glow{position:absolute;z-index:0;pointer-events:none;border-radius:50%;filter:blur(96px);}
+  .start-glow-a{top:-18vh;left:-12vw;width:52vw;height:52vw;background:radial-gradient(circle,rgba(var(--start-accent-rgb),.32),transparent 62%);}
+  .start-glow-b{bottom:-22vh;right:-12vw;width:46vw;height:46vw;background:radial-gradient(circle,rgba(56,189,248,.2),transparent 62%);}
 
-  .lib-section{margin-top:22px;}
-  .lib-section h2{margin:0 0 12px;font-size:15px;font-weight:600;color:#12181f;}
+  #backHomeBtn{
+    position:fixed;top:18px;left:18px;z-index:40;
+    display:inline-flex;align-items:center;gap:8px;
+    padding:9px 16px 9px 13px;border-radius:999px;
+    background:rgba(8,10,26,.72);border:1px solid rgba(255,255,255,.12);
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    color:#eef0ff;font-family:'Space Grotesk',Arial,sans-serif;font-size:13px;font-weight:600;
+    text-decoration:none;box-shadow:0 18px 40px -22px rgba(0,0,0,.9);
+    transition:border-color .25s ease,background .25s ease,transform .25s ease;
+  }
+  #backHomeBtn:hover{border-color:rgba(var(--start-accent-rgb),.6);background:rgba(255,255,255,.07);transform:translateX(-2px);}
+  #backHomeBtn svg{flex:0 0 auto;display:block;}
+
+  #startCard{
+    position:relative;z-index:1;
+    background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.10);
+    border-radius:26px;max-width:680px;width:100%;
+    padding:40px 40px 36px;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+    box-shadow:0 40px 100px -40px rgba(0,0,0,.85);
+    font-family:'Manrope',Arial,sans-serif;color:#eef0ff;
+  }
+  #startCard::before{
+    content:"";position:absolute;top:0;left:30px;right:30px;height:1px;
+    background:linear-gradient(90deg,transparent,var(--start-accent),transparent);
+  }
+  #startCard h1{margin:0 0 6px;font-family:'Space Grotesk',Arial,sans-serif;font-size:29px;font-weight:700;letter-spacing:-.5px;color:#eef0ff;}
+  #startCard .subtitle{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:1.5px;
+    color:var(--start-accent);background:rgba(var(--start-accent-rgb),.14);
+    border:1px solid rgba(var(--start-accent-rgb),.32);border-radius:999px;
+    padding:5px 12px;margin-bottom:16px;text-transform:uppercase;
+  }
+  #startCard p{line-height:1.65;color:#aab0d6;font-size:15px;}
+  #startCard ul{line-height:1.85;color:#aab0d6;padding-left:20px;font-size:15px;}
+  #startCard ul li::marker{color:var(--start-accent);}
+  .ru-note{
+    background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.09);
+    border-left:3px solid var(--start-accent);padding:14px 16px;border-radius:12px;
+    font-size:13.5px;line-height:1.6;color:#aab0d6;margin-bottom:20px;
+  }
+  .ru-note b{color:#eef0ff;}
+
+  .lib-section{margin-top:26px;}
+  .lib-section h2{margin:0 0 14px;font-family:'Space Grotesk',Arial,sans-serif;font-size:14px;font-weight:700;letter-spacing:.3px;color:#eef0ff;}
   #libraryList{display:flex;flex-direction:column;gap:10px;}
   .lib-card{
     display:flex;align-items:center;justify-content:space-between;gap:16px;
-    background:#f7f9fc;border:1px solid #e2e6ea;border-radius:8px;padding:14px 18px;
-    transition:border-color .15s ease, background .15s ease;
+    background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:15px 18px;
+    transition:border-color .25s ease, background .25s ease, transform .25s ease;
   }
-  .lib-card:hover{border-color:#0b5fff;background:#eef3fb;}
-  .lib-card-title{font-weight:bold;font-size:15px;color:#12181f;}
-  .lib-card-blurb{font-size:12.5px;color:#666;margin-top:3px;}
-  .lib-card-source{font-size:11px;color:var(--muted);margin-top:5px;}
-  .lib-card-source .source-label{font-weight:700;color:var(--accent);}
+  .lib-card:hover{border-color:rgba(var(--start-accent-rgb),.55);background:rgba(255,255,255,.06);transform:translateY(-1px);}
+  .lib-card-title{font-weight:700;font-size:15px;color:#eef0ff;font-family:'Space Grotesk',Arial,sans-serif;}
+  .lib-card-blurb{font-size:12.5px;color:#8b91b8;margin-top:3px;}
+  .lib-card-source{font-size:11px;color:#6f75a0;margin-top:6px;}
+  .lib-card-source .source-label{font-weight:700;color:var(--start-accent);}
   .lib-start-btn{
-    flex:0 0 auto;background:#0b5fff;color:#fff;border:none;padding:10px 22px;
-    border-radius:6px;font-size:14px;cursor:pointer;font-weight:bold;
+    flex:0 0 auto;background:var(--start-accent);color:#05060f;border:none;padding:10px 20px;
+    border-radius:999px;font-size:13px;cursor:pointer;font-weight:700;font-family:'Space Grotesk',Arial,sans-serif;
+    transition:filter .2s ease,transform .2s ease;
   }
-  .lib-start-btn:hover{background:#0949c9;}
-  .lib-divider{display:flex;align-items:center;gap:12px;margin:22px 0 16px;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:0.8px;}
-  .lib-divider::before, .lib-divider::after{content:"";flex:1;height:1px;background:#e2e6ea;}
+  .lib-start-btn:hover{filter:brightness(1.1);transform:translateY(-1px);}
+  .lib-divider{display:flex;align-items:center;gap:12px;margin:26px 0 18px;color:#6f75a0;font-size:11px;text-transform:uppercase;letter-spacing:1px;font-family:'JetBrains Mono',monospace;}
+  .lib-divider::before, .lib-divider::after{content:"";flex:1;height:1px;background:rgba(255,255,255,.12);}
   .lib-actions{display:flex;gap:10px;flex-wrap:wrap;}
-  .lib-actions .btn{padding:11px 20px;font-size:14px;}
+  .lib-actions .btn{padding:11px 20px;font-size:13.5px;}
+  #startCard .btn-secondary{
+    background:rgba(255,255,255,.05);color:#eef0ff;border:1px solid rgba(255,255,255,.14);
+    border-radius:999px;font-family:'Space Grotesk',Arial,sans-serif;font-weight:600;
+    transition:border-color .25s ease,background .25s ease;
+  }
+  #startCard .btn-secondary:hover{border-color:rgba(var(--start-accent-rgb),.55);background:rgba(255,255,255,.09);}
 
   /* ---------- Test app ---------- */
   #testApp{display:none;flex-direction:column;height:100vh;}
@@ -569,10 +628,13 @@
 
 <!-- ===================== START SCREEN ===================== -->
 <div id="startScreen">
+  <a id="backHomeBtn" href="index.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"></path></svg>IELTS Prep Hub</a>
+  <div class="start-glow start-glow-a"></div>
+  <div class="start-glow start-glow-b"></div>
   <div id="startCard">
     <div class="subtitle">IELTS · ACADEMIC READING</div>
     <h1>IELTS Reading Test — Practice Simulator</h1>
-    <div class="ru-note">Тренажёр компьютерного IELTS Reading Test: таймер по центру, Settings (шрифт/фон) и Hide справа, подсветка/заметки по <b>правому клику</b>, Review и Previous/Next снизу. В Settings есть блок <b>🔀 AI Integration</b> — можно выбрать провайдера: свой ключ OpenRouter (любая модель — Claude, GPT, Gemini, DeepSeek и т.д.) или локальный <b>claude-server</b> на этой машине (использует твой логин Claude Code, без API-ключа). Одной кнопкой генерируется совершенно новый тест (другие тексты и вопросы), плюс сохранение/импорт теста в JSON.</div>
+    <div class="ru-note">Computer-based IELTS Reading Test trainer: timer in the center, Settings (font/background) and Hide on the right, highlighting/notes via <b>right-click</b>, Review and Previous/Next at the bottom. Settings includes a <b>🔀 AI Integration</b> block — choose a provider: your own OpenRouter key (any model — Claude, GPT, Gemini, DeepSeek, etc.) or a local <b>claude-server</b> on this machine (uses your Claude Code login, no API key needed). One button generates a brand-new test (different passages and questions), plus test save/import as JSON.</div>
     <p>You should spend about <b>60 minutes</b> on this test, which has <b>3 parts</b> and <b>40 questions</b>. Read the instructions for each part carefully. Answer <b>all</b> questions. You can change your answers at any time before submitting.</p>
     <ul>
       <li>Part 1 — Questions 1–13</li>
